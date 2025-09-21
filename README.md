@@ -63,7 +63,7 @@ npm install
 npm run dev
 
 # 3. Frontend installieren & starten (neues Terminal öffnen)
-cd ../frontend
+cd ../frontend/taskflow
 npm install
 npm run dev
 ```
