@@ -9,6 +9,7 @@ const ViewTaskDetails = () => {
   const { id } = useParams();
   const [task, setTask] = useState(null);
 
+  // Farben für Status
   const getStatusTagColor = (status) => {
     switch (status) {
       case "In Progress":
@@ -20,10 +21,40 @@ const ViewTaskDetails = () => {
     }
   };
 
+  // Übersetzungen für Status
+  const translateStatus = (status) => {
+    switch (status) {
+      case "Pending":
+        return "Offen";
+      case "In Progress":
+        return "In Bearbeitung";
+      case "Completed":
+        return "Abgeschlossen";
+      default:
+        return status;
+    }
+  };
+
+  // Übersetzungen für Priorität
+  const translatePriority = (priority) => {
+    switch (priority) {
+      case "Low":
+        return "Niedrig";
+      case "Medium":
+        return "Mittel";
+      case "High":
+        return "Hoch";
+      default:
+        return priority;
+    }
+  };
+
   // API Call
   const getTaskDetailsByID = async () => {
     try {
-      const response = await axiosInstance.get(API_PATHS.TASKS.GET_TASK_BY_ID(id));
+      const response = await axiosInstance.get(
+        API_PATHS.TASKS.GET_TASK_BY_ID(id)
+      );
       if (response.data) {
         setTask(response.data);
       }
@@ -35,7 +66,6 @@ const ViewTaskDetails = () => {
   // Update ToDo + Status
   const updateTodoChecklist = async (index) => {
     try {
-      // Kopie machen und Checkbox togglen
       const updatedChecklist = [...task.todoChecklist];
       updatedChecklist[index].completed = !updatedChecklist[index].completed;
 
@@ -56,7 +86,6 @@ const ViewTaskDetails = () => {
         status: newStatus,
       });
 
-      // State updaten
       setTask((prev) => ({
         ...prev,
         todoChecklist: updatedChecklist,
@@ -85,15 +114,13 @@ const ViewTaskDetails = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 mt-4">
           <div className="form-card col-span-3">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl md:text-xl font-medium">
-                {task?.title}
-              </h2>
+              <h2 className="text-xl md:text-xl font-medium">{task?.title}</h2>
               <div
                 className={`text-[13px] font-medium px-4 py-0.5 rounded ${getStatusTagColor(
                   task?.status
                 )}`}
               >
-                {task?.status}
+                {translateStatus(task?.status)}
               </div>
             </div>
           </div>
@@ -118,7 +145,7 @@ const ViewTaskDetails = () => {
               Priorität
             </span>
             <span className="text-sm font-semibold text-slate-800">
-              {task?.priority || "-"}
+              {translatePriority(task?.priority) || "-"}
             </span>
           </div>
 
@@ -136,7 +163,9 @@ const ViewTaskDetails = () => {
 
         {/* Assigned To */}
         <div className="mt-4">
-          <span className="text-xs font-medium text-slate-500">Zugewiesen an</span>
+          <span className="text-xs font-medium text-slate-500">
+            Zugewiesen an
+          </span>
           <div className="flex gap-2 mt-2">
             {task?.assignedTo?.length > 0 ? (
               task.assignedTo.map((user) => (
@@ -153,7 +182,9 @@ const ViewTaskDetails = () => {
                 </div>
               ))
             ) : (
-              <span className="text-sm text-slate-600">Kein Benutzer zugewiesen</span>
+              <span className="text-sm text-slate-600">
+                Kein Benutzer zugewiesen
+              </span>
             )}
           </div>
         </div>
