@@ -6,7 +6,7 @@ import { API_PATHS } from "../../utils/apiPaths";
 import { LuFileSpreadsheet } from "react-icons/lu";
 import TaskStatusTabs from "../../components/TaskStatusTabs";
 import moment from "moment";
-import "moment/locale/de"; // 📌 Deutsche Datumsanzeige
+import "moment/locale/de"; // Deutsche Datumsanzeige
 
 moment.locale("de"); // Sprache setzen
 
@@ -42,8 +42,23 @@ const ManageTasks = () => {
     navigate(`/admin/create-task/${taskData._id}`);
   };
 
+  // Excel-Report herunterladen
   const handleDownloadReport = async () => {
-    console.log("Bericht herunterladen – noch nicht implementiert");
+    try {
+      const response = await axiosInstance.get(API_PATHS.REPORTS.EXPORT_TASKS, {
+        responseType: "blob",
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "tasks_report.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error("Download fehlgeschlagen:", error);
+    }
   };
 
   useEffect(() => {
@@ -140,24 +155,33 @@ const ManageTasks = () => {
                 {/* Status + Priorität Badges */}
                 <div className="flex gap-2 mb-2">
                   <span
-                    className={`text-xs px-2 py-0.5 rounded ${statusColors[task.status] || "bg-gray-100 text-gray-600"}`}
+                    className={`text-xs px-2 py-0.5 rounded ${
+                      statusColors[task.status] || "bg-gray-100 text-gray-600"
+                    }`}
                   >
                     {translateStatus(task.status)}
                   </span>
                   <span
-                    className={`text-xs px-2 py-0.5 rounded ${priorityColors[task.priority] || "bg-gray-100 text-gray-600"}`}
+                    className={`text-xs px-2 py-0.5 rounded ${
+                      priorityColors[task.priority] || "bg-gray-100 text-gray-600"
+                    }`}
                   >
                     {translatePriority(task.priority)}
                   </span>
                 </div>
 
                 {/* Titel + Beschreibung */}
-                <h3 className="font-semibold text-gray-800 truncate">{task.title}</h3>
-                <p className="text-sm text-gray-500 line-clamp-2">{task.description}</p>
+                <h3 className="font-semibold text-gray-800 truncate">
+                  {task.title}
+                </h3>
+                <p className="text-sm text-gray-500 line-clamp-2">
+                  {task.description}
+                </p>
 
                 {/* Fortschritt */}
                 <p className="text-xs mt-2 text-gray-600">
-                  Erledigt: {task.todoChecklist.filter((t) => t.completed).length} /{" "}
+                  Erledigt:{" "}
+                  {task.todoChecklist.filter((t) => t.completed).length} /{" "}
                   {task.todoChecklist.length}
                 </p>
                 <div className="w-full h-2 bg-gray-200 rounded mt-1">
@@ -179,11 +203,15 @@ const ManageTasks = () => {
                 <div className="flex justify-between text-xs text-gray-500 mt-3">
                   <span>
                     Startdatum:{" "}
-                    {task.createdAt ? moment(task.createdAt).format("D. MMMM YYYY") : "-"}
+                    {task.createdAt
+                      ? moment(task.createdAt).format("D. MMMM YYYY")
+                      : "-"}
                   </span>
                   <span>
                     Fällig am:{" "}
-                    {task.dueDate ? moment(task.dueDate).format("D. MMMM YYYY") : "-"}
+                    {task.dueDate
+                      ? moment(task.dueDate).format("D. MMMM YYYY")
+                      : "-"}
                   </span>
                 </div>
               </div>
