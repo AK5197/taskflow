@@ -5,7 +5,7 @@ Entwickelt im Rahmen des Moduls **Schule – Internetdienste**.
 
 ---
 
-## 🌟 Projektbeschreibung
+## Projektbeschreibung
 
 **TaskFlow** ermöglicht es Teams, Aufgaben effizient zu verwalten, zuzuweisen und den Fortschritt zu überwachen.  
 Die Anwendung bietet sowohl **Admin-Funktionalitäten** (Erstellen, Zuweisen, Teamübersicht) als auch **User-Funktionalitäten** (eigene Aufgaben bearbeiten und abschließen).  
@@ -14,16 +14,16 @@ Ziel ist es, ein praxisnahes Beispiel für eine **komplette MERN-Webanwendung** 
 
 ---
 
-## ✨ Features
+## Features
 
-### 👨‍💼 Admin
+### Admin
 - Dashboard mit KPIs und Diagrammen
 - Aufgaben erstellen, bearbeiten und löschen
 - Aufgaben an Teammitglieder zuweisen
 - Teamübersicht mit Statistiken
 - Export der Team-Daten als Excel
 
-### 👤 Member
+### Member
 - Eigene Aufgaben einsehen
 - Aufgabenstatus ändern (Offen → In Bearbeitung → Abgeschlossen)
 - Fortschritt anhand von Checklisten verfolgen
@@ -31,7 +31,7 @@ Ziel ist es, ein praxisnahes Beispiel für eine **komplette MERN-Webanwendung** 
 
 ---
 
-## 🛠️ Technologien
+## Technologien
 
 - **Frontend:** React.js, Vite, Tailwind CSS  
 - **Backend:** Node.js, Express.js  
@@ -44,7 +44,7 @@ Ziel ist es, ein praxisnahes Beispiel für eine **komplette MERN-Webanwendung** 
 
 ---
 
-## ⚡ Setup & Installation
+## Setup & Installation
 
 ### Voraussetzungen
 - Node.js **v22.18.0**
@@ -70,12 +70,12 @@ npm run dev
 
 ---
 
-### 🔑 Environment Variablen
+### Environment Variablen
 
 Die echten `.env` Dateien sind **nicht im Repository** enthalten (sicherheitsbedingt).  
 Stattdessen liegen im Repo die Dateien **`/backend/.env.example`** und **`/frontend/.env.example`** als Vorlage.  
 
-👉 Vorgehen:  
+Vorgehen:  
 1. Kopiere die `.env.example` in beiden Ordnern (`backend` und `frontend`).  
 2. Benenne die Dateien in `.env` um.  
 3. Trage deine individuellen Werte ein (z. B. MongoDB-URL, JWT-Secret).  
@@ -95,7 +95,7 @@ VITE_API_BASE_URL=http://localhost:5000/api
 
 ---
 
-## 📂 Datenmodell & API
+## Datenmodell & API
 Beispiel: User
 ```bash
 {
@@ -123,6 +123,6 @@ Beispiel: Task
 
 ---
 
-## 🔮 Mögliche Erweiterungen
-- 🔑 Passwort-Reset via E-Mail
-- 📅 Kalenderintegration (z. B. Google Calendar)
+## Mögliche Erweiterungen
+- Passwort-Reset via E-Mail
+- Kalenderintegration (z. B. Google Calendar)
