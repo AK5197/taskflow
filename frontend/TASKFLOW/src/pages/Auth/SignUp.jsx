@@ -86,19 +86,14 @@ const SignUp = () => {
           <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Name */}
-            <div className="flex flex-col">
-              <label className="text-sm text-slate-700 mb-1">
-                Vollständiger Name
-              </label>
-              <input
-                value={fullName}
-                onChange={({ target }) => setFullName(target.value)}
-                placeholder="Max Mustermann"
-                type="text"
-                className="border border-slate-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-            </div>
+            {/* Vollständiger Name */}
+            <Input
+              value={fullName}
+              onChange={({ target }) => setFullName(target.value)}
+              label="Vollständiger Name"
+              placeholder="Max Mustermann"
+              type="text"
+            />
 
             {/* E-Mail */}
             <Input
